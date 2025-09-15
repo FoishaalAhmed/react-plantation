@@ -20,7 +20,7 @@ export default function SimpleSlider() {
     <div className="max-w-7xl mx-auto mt-6">
       <Slider {...settings}>
         {slides.map((num) => (
-          <div key={num} className="px-4">
+          <div key={num}>
             <div className="relative h-[350px] w-full">
           <img
             src="https://www.marthastewart.com/thmb/K24LIzve6z1Q_Oi_DBeHfzJwPfs=/750x0/filters:no_upscale():max_bytes(150000):strip_icc()/plants-look-beautiful-when-not-blooming-coleus-lead-getty-0623-c6efce0847fc421fab5f394fe02cda51.jpg"

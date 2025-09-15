@@ -1,8 +1,13 @@
 import { useState } from "react";
 import NavItem from "./NavItem";
 import Search from "./Search";
+import {initialState} from "../../data/plant.js";
 
 export default function Navbar() {
+
+  const Categories = initialState.map((item) => item.type); 
+  const uniqueCategories = [...new Set(Categories)];
+  
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -65,12 +70,11 @@ export default function Navbar() {
             rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:border-0 
             md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
           >
-            <NavItem navLink="Home" navText="All" isActive={true}/>
-            <NavItem navLink="Indore" navText="Indore" isActive={false}/>
-            <NavItem navLink="Calathus" navText="Calathus" isActive={false}/>
-            <NavItem navLink="Dracena" navText="Dracena" isActive={false}/>
-            <NavItem navLink="Ficus" navText="Ficus" isActive={false}/>
-            <NavItem navLink="Orchids" navText="Orchids" isActive={false}/>
+            {
+              uniqueCategories.map((category) => (
+                <NavItem key={category} navLink={category} navText={category} isActive={false}/>
+              ))
+            }
             
           </ul>
 
