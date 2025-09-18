@@ -28,36 +28,31 @@ const reducer = (state, action) => {
 			return initialState;
 		}
 
-		case "Indore": {
-			activeCategory = "Indore";
-			return initialState.filter((item) => item.type == "Indore");
+		case "Indore":
+		case "Calathea":
+		case "Dracaena":
+		case "Ficus":
+		case "Orchids":
+		{
+			activeCategory = action.type;
+			return initialState.filter((item) => item.type == action.type);
 		}
 
-		case "Calathea": {
-			activeCategory = "Calathea";
-			return initialState.filter((item) => item.type == "Calathea");
-		}
+		case "filterPrice": {
+			return initialState.filter((item) => {
 
-		case "Dracaena": {
-			activeCategory = "Dracaena";
-			return initialState.filter((item) => item.type == "Dracaena");
-		}
+				if (activeCategory == 'All') {
+					return item.price <= action.price
+				}
 
-		case "Ficus": {
-			activeCategory = "Ficus";
-			return initialState.filter((item) => item.type == "Ficus");
-		}
-
-		case "Orchids": {
-			activeCategory = "Orchids";
-			return initialState.filter((item) => item.type == "Orchids");
+				return item.type == activeCategory &&  item.price <= action.price;
+			});
 		}
 	
 		default: {
 			activeCategory = "All";
 			return initialState;
 		}
-
 	}
 };
 
@@ -74,8 +69,7 @@ function App() {
 							items: items,
 							itemDispatch: dispatch,
 							activeCategory: activeCategory,
-							itemCurrentPage: 1,
-							filterPrice: filterablePrices[activeCategory],
+							itemCurrentPage: 1
 						}}
 					>
 					<NavBar />
@@ -83,8 +77,8 @@ function App() {
 					<Slider></Slider>
 
 					<div className="max-w-7xl mx-auto mt-6 flex flex-wrap justify-center gap-2">
-						{prices.map((price) => (
-						<Button key={price} text={price}></Button>
+						{filterablePrices[activeCategory].map((price) => (
+							<Button key={price} text={price}></Button>
 						))}
 					</div>
 

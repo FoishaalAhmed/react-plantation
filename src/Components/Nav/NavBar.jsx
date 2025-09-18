@@ -72,7 +72,7 @@ export default function Navbar() {
           >
             {
               uniqueCategories.map((category) => (
-                <NavItem key={category} navText={category} isActive={false}/>
+                <NavItem key={category} navText={category} isActive={false} />
               ))
             }
             
