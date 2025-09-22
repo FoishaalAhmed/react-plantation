@@ -5,9 +5,7 @@ import Footer from './Components/Nav/Footer'
 import Slider from './Components/Slider'
 import Button from './Components/Button'
 import Item from './Components/Main/Item'
-import { initialState } from './data/plant'
-
-const prices = [...new Set(initialState.map((item) => item.price))].sort((a, b) => b - a).slice(0, 10); 
+import { initialState } from './data/plant' 
 
 let activeCategory = "All";
 
@@ -47,6 +45,14 @@ const reducer = (state, action) => {
 
 				return item.type == activeCategory &&  item.price <= action.price;
 			});
+		}
+
+		case 'add': {
+
+			activeCategory = action.item.type;
+            const newItem = { ...action.item, id: Date.now() }; // unique id
+            const updatedState = [...state, newItem];
+			return updatedState.filter((item) => item.type === action.item.type);
 		}
 	
 		default: {

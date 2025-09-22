@@ -2,6 +2,7 @@ import { useState } from "react";
 import NavItem from "./NavItem";
 import Search from "./Search";
 import {initialState} from "../../data/plant.js";
+import Modal from "../Main/AddItem.jsx";
 
 export default function Navbar() {
 
@@ -9,6 +10,8 @@ export default function Navbar() {
   const uniqueCategories = [...new Set(Categories)];
   
   const [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
 
   return (
     <nav className="bg-white border-gray-200 dark:bg-gray-900">
@@ -23,7 +26,7 @@ export default function Navbar() {
 
         {/* Right side buttons */}
         <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <button
+          <button onClick={() => setShowModal(true)}
             type="button"
             className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none 
             focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center 
@@ -80,6 +83,8 @@ export default function Navbar() {
 
           {/* Search bar (side by side with menu) */}
           <Search />
+
+          <Modal show={showModal} onClose={() => setShowModal(false)} categories={uniqueCategories}></Modal>
         </div>
       </div>
     </nav>
